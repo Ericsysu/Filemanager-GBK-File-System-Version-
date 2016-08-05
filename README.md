@@ -1,0 +1,2 @@
+# Filemanager-GBK-File-System-Version-
+由于公司的SVN目录系统是基于GBK编码的linux，美术也有从Windows上传GBK编码文件的要求，因此改了好久将UTF8版本的改为了支持GBK编码的版本，在GBK编码的linux下可用。另外需要吐槽一下PHP和JS对于GBK编码的支持性，很多原生函数都不支持GBK编码参数的传入，例如PHP的realpath函数在传入中文路径的时候就会返回空值。
