@@ -129,7 +129,7 @@ function PGRFileManager(options)
 				button_text_top_padding: 3,				
 				// The event handler functions
 				file_queue_error_handler :  function(file_object, error_code, message) {alert(file_object.name + " - " + message)},
-				upload_init_handler : function() {uploader.addPostParam("dir", currentDir)},
+				upload_init_handler : function() {uploader.addPostParam("dir", encodeURI(currentDir))},
 				upload_all_complete_handler: readFolder
 			});
 		}

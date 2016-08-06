@@ -11,9 +11,9 @@ if (!PGRFileManagerConfig::$allowEdit) die("Not allowed!");
 
 //get dir from GET
 if (isset($_POST['dir'])) {
-    $directory = realpath(PGRFileManagerConfig::$rootDir . $_POST['dir']);
+    $directory = PGRFileManagerUtils::charchangerev(realpath(PGRFileManagerConfig::$rootDir) . urldecode($_POST['dir']));
 } else {
-    $directory = realpath(PGRFileManagerConfig::$rootDir);
+    $directory = PGRFileManagerUtils::charchangeressv(realpath(PGRFileManagerConfig::$rootDir));
 }   
 
 //check if dir exist
@@ -23,9 +23,9 @@ if (!is_dir($directory)) die();
 if (strpos($directory, realpath(PGRFileManagerConfig::$rootDir)) === false) die();
 
 if (!empty($_FILES)) {
-    $tempFile = $_FILES['Filedata']['tmp_name'];
-    $targetFile =  $directory . '/' . $_FILES['Filedata']['name'];
-    $targetFile = PGRFileManagerUtils::charchangerev($targetFile);
+    $tempFile = PGRFileManagerUtils::charchangerev($_FILES['Filedata']['tmp_name']);
+    $targetFile =  PGRFileManagerUtils::charchangerev($directory . '/' . PGRFileManagerUtils::charchangerev($_FILES['Filedata']['name']));
+    //$targetFile = PGRFileManagerUtils::charchangerev($targetFile);
             
     
     // Validate the file size (Warning: the largest files supported by this code is 2GB)
@@ -44,7 +44,7 @@ if (!empty($_FILES)) {
     //if image check size, and rescale if necessary    
     try{
         if (preg_match('/^.*\.(jpg|gif|jpeg|png|bmp)$/', strtolower($_FILES['Filedata']['name'])) > 0) {
-            $targetFile = realpath($targetFile);
+            $targetFile = PGRFileManagerUtils::charchangerev($targetFile);
             $imageInfo = PGRFileManagerUtils::getImageInfo($targetFile);
             if (($imageInfo !== false) && 
                (($imageInfo['height'] > PGRFileManagerConfig::$imageMaxHeight) || 
@@ -52,7 +52,7 @@ if (!empty($_FILES)) {
                     require_once(realpath(dirname(__FILE__) . '/../PGRThumb/php/Image.php'));
                     $image = PGRThumb_Image::factory($targetFile);
                     $image->maxSize(PGRFileManagerConfig::$imageMaxWidth, PGRFileManagerConfig::$imageMaxHeight);
-                    $image->saveImage(PGRFileManagerUtils::charchangerev($targetFile), 80);
+                    $image->saveImage($targetFile, 80);
             }
         }
     } catch(Exception $e) {
