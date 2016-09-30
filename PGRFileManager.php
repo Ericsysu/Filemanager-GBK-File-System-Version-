@@ -37,6 +37,7 @@
   <script type="text/javascript" src="js/PGRSelectable.js"></script>
   <script type="text/javascript" src="js/PGRFileManager.js"></script>
   <script type="text/javascript" src="js/PGRFileManagerContent.js"></script>
+  <script type="text/javascript" src="js/uploadFolder.js"></script>
   
   </head>
   <body>   
@@ -64,14 +65,19 @@
         <div id="leftColumn">
           <div id="folderList">
           </div>
-          <!-- <?php if (PGRFileManagerConfig::$allowEdit):?> -->
+          <div id="uploadFolder" class="ui-widget-content">
+            <a href="javascript:;" class="folder-upload">选择文件夹
+              <input type="file" id="folderupload" name="folderupload[]" multiple="" webkitdirectory="">​
+            </a>
+            <div id="numoffiles"></div>
+            <input type="submit" id="submit-folder" value="确认上传">
+          </div>
           <div id="uploadPanel" class="ui-widget-content" >
-            <input type="file" name="fileInput" id="fileInput"  />
+            <input type="file" name="fileInput" id="fileInput" />
             <img id="uploadFiles" src="img/blank.gif" />
             <img id="removeFiles" src="img/blank.gif" />
             <div id="fsUploadProgress"></div>
           </div>
-          <!-- <?php endif;?> -->
         </div>
         <div id="rightColumn">
           <div id="fileList" class="unselectable">                      

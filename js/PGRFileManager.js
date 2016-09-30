@@ -19,6 +19,8 @@ function PGRFileManager(options)
     var uploader = null;
     
     var fileListType = "icons";
+
+    var folderinput;
         
     var downloadFrame = $('<iframe style="display:none"></iframe>');
     $("body").append(downloadFrame);	    
@@ -120,7 +122,7 @@ function PGRFileManager(options)
 				debug: false,
 
 				// Button settings
-				button_image_url: "img/uploadButton.gif",
+				button_image_url: "img/uploadButton1.gif",
 				button_width: "110",
 				button_height: "30",
 				button_placeholder_id: "fileInput",
@@ -146,7 +148,7 @@ function PGRFileManager(options)
 			stop: function() {
 				if(filesSelectable) filesSelectable.setMultiselectData();
 			}
-		});  
+		});
 			    
 		function resize()
 		{
