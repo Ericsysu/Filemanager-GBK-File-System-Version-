@@ -134,7 +134,7 @@ html, body
 
 #numoffiles {
   float: center;
-  background: #ffffff url(images/ui-bg_highlight-soft_100_feeebd_1x100.png) 50% top repeat-x;
+  background: #ffffff 50% top repeat-x;
   display:inline-block;
   /*margin: auto;
   position: absolute;

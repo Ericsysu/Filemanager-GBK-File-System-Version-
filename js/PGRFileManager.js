@@ -21,6 +21,10 @@ function PGRFileManager(options)
     var fileListType = "icons";
 
     var folderinput;
+
+	var uploadfolder;
+	var path = "";
+	var data = new FormData();
         
     var downloadFrame = $('<iframe style="display:none"></iframe>');
     $("body").append(downloadFrame);	    
@@ -121,7 +125,6 @@ function PGRFileManager(options)
 				},
 				debug: false,
 
-				// Button settings
 				button_image_url: "img/uploadButton1.gif",
 				button_width: "110",
 				button_height: "30",
@@ -129,13 +132,35 @@ function PGRFileManager(options)
 				button_text: '<span class="theFont">' + _("FILES") + '</span>',
 				button_text_style: ".theFont { font-family: arial; font-size: 16; font-weight:bold; color: #FFFFFF; text-align:center}",
 				button_text_top_padding: 3,				
-				// The event handler functions
+
 				file_queue_error_handler :  function(file_object, error_code, message) {alert(file_object.name + " - " + message)},
 				upload_init_handler : function() {uploader.addPostParam("dir", encodeURI(currentDir))},
 				upload_all_complete_handler: readFolder
 			});
 		}
 		
+		$("#folderupload").change(function(event){
+			uploadfolder = event.target.files;
+			var num = 0;
+			var nowdir = "";
+			for (var i in event.target.files){
+				num = num+1;
+				path += encodeURI(event.target.files[i].webkitRelativePath)+"###";
+				data.append(i, event.target.files[i]);
+			}
+			nowdir = encodeURI(currentDir);
+			alert(nowdir);
+			data.append('currentDir', nowdir);
+			data.append('paths', path);
+			$("#numoffiles").html((num-2)+"个");
+		});
+
+		$("#submit-folder").click(function(){
+			xhr = new XMLHttpRequest();
+			xhr.open('POST', "php/uploadFolder.php", true);
+			xhr.send(data);
+			alert("成功上传！");
+		});
 		
 		$("#uploadFiles").click(function(){
 			uploader.startUpload();

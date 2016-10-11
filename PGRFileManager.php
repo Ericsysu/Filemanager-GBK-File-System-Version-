@@ -17,7 +17,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh_CN" lang="zh_CN">
   <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <title>PGRFileManager</title>
+  <title>FileManager</title>
   <link rel="stylesheet" type="text/css" href="css/sunny2/jquery-ui-1.8.1.custom.css" />
   <link rel="stylesheet" type="text/css" href="css/jquery.treeview.css" />
   <link rel="stylesheet" type="text/css" href="css/fancybox/jquery.fancybox.css" />
@@ -37,7 +37,6 @@
   <script type="text/javascript" src="js/PGRSelectable.js"></script>
   <script type="text/javascript" src="js/PGRFileManager.js"></script>
   <script type="text/javascript" src="js/PGRFileManagerContent.js"></script>
-  <script type="text/javascript" src="js/uploadFolder.js"></script>
   
   </head>
   <body>   
