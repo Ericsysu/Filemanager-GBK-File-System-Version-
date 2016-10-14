@@ -72,14 +72,7 @@ function PGRFileManager(options)
 		if (options.allowEdit) {
 			fileImageMenu.addItemAt(_("逆时针旋转90度"), rotateImage90CounterClockwise, "", fileImageMenuPos);
 			fileImageMenu.addItemAt(_("顺时针旋转90度"), rotateImage90Clockwise, "", fileImageMenuPos);
-			//fileImageMenu.addItemAt(_("创建缩略图"), createThumb, "", fileImageMenuPos);
 			fileImageMenu.addSeparatorAt(fileImageMenuPos);
-		}
-		
-		fileCKEditorMenu = new PGRContextMenu("fileCKEditMenu", fileMenu);
-		if (options.allowEdit) {
-			fileCKEditorMenu.addItemAt(_("edit with CKEditor"), editInCKEditor, "", fileImageMenuPos);
-			fileCKEditorMenu.addSeparatorAt(fileImageMenuPos);
 		}
 		
 		filesMenu = new PGRContextMenu("filesMenu", "contextMenu ui-widget-content");
@@ -149,7 +142,6 @@ function PGRFileManager(options)
 				data.append(i, event.target.files[i]);
 			}
 			nowdir = encodeURI(currentDir);
-			alert(nowdir);
 			data.append('currentDir', nowdir);
 			data.append('paths', path);
 			$("#numoffiles").html((num-2)+"个");
@@ -196,14 +188,12 @@ function PGRFileManager(options)
 			}, 200);
 		}); 
 			  
-		//lang
-		$("#btnLogoff").text(_("sign out"));
-		$("#btnRefresh").text(_("refresh"));
-		$("#btnSelectAllFiles").text(_("select all files"));
-		$("#btnUnselectAllFiles").text(_("unselect all files"));
-		$("#fileListType").children("[value='icons']").text(_("icons"));
-		$("#fileListType").children("[value='list']").text(_("list"));
-		//lang
+		$("#btnLogoff").text(_("登出"));
+		$("#btnRefresh").text(_("刷新"));
+		$("#btnSelectAllFiles").text(_("选择所有文件"));
+		$("#btnUnselectAllFiles").text(_("取消选择所有文件"));
+		$("#fileListType").children("[value='icons']").text(_("图标"));
+		$("#fileListType").children("[value='list']").text(_("列表"));
 	}
 	
 	this.initFiles = function()
@@ -238,7 +228,6 @@ function PGRFileManager(options)
 				$file = $("#files .ui-selected");
 				if ($file.length > 1) return "filesMenu";
 				else if ($file.data("fileData").imageInfo) return "fileImageMenu";
-				else if (window['CKEDITOR'] && $file.data("fileData").ckEdit) return "fileCKEditMenu";
 				else return "fileMenu";
 			}
 		});
@@ -708,55 +697,6 @@ function PGRFileManager(options)
 		}, "json");			
 	}
 	
-	function editInCKEditor()
-	{
-		if (!window['CKEDITOR']) return;
-		
-	    fileLoading.setLoadingPanel();
-	    fileLoading.bindLoadingPanel();
-
-	    var filename = $("#files .ui-selected").attr("filename");	
-
-	    $.post("php/ckedit.php", {fun:"getContent", dir:currentDir, filename:filename}, function(res){
-			var $ckPanel = $('<div title="PGRFileManager">');
-			var $textarea = $('<textarea id="ckEditContent" name="content" style="width:100%;height:220px">');
-		    var buttons = new Object();
-		    buttons[_('Ok')] = function() {
-		    	var content = CKEDITOR.instances.ckEditContent.getData();
-		    	$.post("php/ckedit.php", {fun:"putContent", dir:currentDir, filename:filename, content:content}, function(res) {
-		    		$ckPanel.dialog('close');		    	
-		    	}, 'text');
-		    };
-		    buttons[_('Cancel')] = function() {
-		    	$(this).dialog('close');
-		    };
-			$textarea.text(res);
-			$ckPanel.append($textarea);
-			$ckPanel.dialog({
-				resizable: false,
-				width: 750,
-				modal: true,
-				buttons: buttons,
-				close: function() {
-					if (CKEDITOR.instances.ckEditContent) {
-						CKEDITOR.remove(CKEDITOR.instances.ckEditContent);
-						delete CKEDITOR.instances.ckEditContent;
-					}
-					$textarea.remove();
-					$ckPanel.remove();
-					delete $textarea; 
-					delete $ckPanel; 				
-				}
-			});
-			CKEDITOR.replace("ckEditContent", {
-				defaultLanguage : options.lang,
-				enterMode 		: CKEDITOR.ENTER_BR,
-				width			: "100%",
-				resize_minWidth : "100%"
-			});			
-		}, "text");					
-	}
-	
 	function uploadFiles()
 	{
 		readFolder();		
@@ -960,7 +900,6 @@ function PGRFileManager(options)
 	
 	function sendUrl(e, obj)
 	{
-		//For fckeditor
 		if (window.opener && window.opener.SetUrl) {
 			window.opener.SetUrl(options.rootDir + currentDir + "/" + obj.attr("filename")) ;
 			window.close() ;	

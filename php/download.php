@@ -4,7 +4,7 @@ include_once dirname(__FILE__) . '/utils.php';
 
 //get dir from GET
 if (isset($_GET['dir'])) {
-    $directory = realpath(PGRFileManagerConfig::$rootDir . $_GET['dir']);
+    $directory = PGRFileManagerUtils::charchangerev(PGRFileManagerConfig::$rootDir . $_GET['dir']);
 } else die();
 
 //check if dir exist
@@ -12,14 +12,14 @@ if (isset($_GET['dir'])) {
 if (!is_dir($directory)) die();
 
 //check if dir is in rootdir
-if (strpos($directory, realpath(PGRFileManagerConfig::$rootDir)) === false) die();
+if (strpos($directory, PGRFileManagerConfig::$rootDir) === false) die();
 
 //$_GET['filename'] = iconv("utf-8","gb2312",$_GET['filename']);
 if (!isset($_GET['filename'])) die();
 
-$filename = PGRFileManagerUtils::charchangerev(realpath($directory) . '/' . $_GET['filename']);
+$filename = PGRFileManagerUtils::charchangerev($directory . '/' . $_GET['filename']);
 //check if file is in dir
-if(dirname($filename) !== $directory) die();
+//if(dirname($filename) !== $directory) die();
 
 // required for IE, otherwise Content-disposition is ignored
 if(ini_get('zlib.output_compression'))

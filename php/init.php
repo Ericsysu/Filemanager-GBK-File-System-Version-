@@ -31,12 +31,5 @@ if (isset($_GET['type'])) {
     $PGRUploaderType = 'all files';
 }
 
-//for ckeditor
-if (isset($_GET['CKEditorFuncNum'])) {
-    $ckEditorFuncNum = $_GET['CKEditorFuncNum'];
-} else {
-    $ckEditorFuncNum = '1';
-}
-
 //for PHP <= 5.2.0 json
 //include_once dirname(__FILE__) . '/json.php';

@@ -28,9 +28,6 @@
   <script type="text/javascript" src="SWFUpload v2.2.0.1 Core/swfupload.js"></script>
   <script type="text/javascript" src="js/jquery.i18n.js"></script>
   <script type="text/javascript" src="js/jquery.fancybox-1.2.1.pack.js"></script>
-  <?php if (PGRFileManagerConfig::$ckEditorScriptPath):?>
-  <script type="text/javascript" src="<?php echo PGRFileManagerConfig::$ckEditorScriptPath ?>"></script>
-  <?php endif;?>
   <script type="text/javascript" src="lang/lang.js"></script>
   <script type="text/javascript" src="js/PGRUploader.js"></script>
   <script type="text/javascript" src="js/PGRContextMenu.js"></script>
